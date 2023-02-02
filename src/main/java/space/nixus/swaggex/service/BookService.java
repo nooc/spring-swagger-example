@@ -2,17 +2,15 @@ package space.nixus.swaggex.service;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.data.jpa.repository.Query;
 import space.nixus.swaggex.model.Book;
+import space.nixus.swaggex.repository.BookRepository;
+
 
 public class BookService {
 
-    private static final String GET_BOOK_BY_ID = "SELECT * FROM Book WHERE id = ?";
-    private static final String SEARCH_BOOK = "SELECT * FROM Book WHERE title LIKE ? or authors LIKE ? or isbn LIKE ?";
-
-    
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private BookRepository bookRepo;
 
     /**
      * 
@@ -20,22 +18,24 @@ public class BookService {
      * @return
      */
     public Book createBook(Book book) {
-        throw new UnsupportedOperationException();
+        return bookRepo.save(book);
     }
 
     public Book getBook(long bookId) {
-        throw new UnsupportedOperationException();
+        return bookRepo.findById(bookId).get();
     }
 
+    @Query
     public List<Book> findBooks(String search) {
-        throw new UnsupportedOperationException();
+        return bookRepo.freeSearch(search);
     }
 
     public boolean updateBook(Book book) {
-        throw new UnsupportedOperationException();
+        return bookRepo.save(book) != null;
     }
 
     public boolean deleteBook(long bookId) {
-        throw new UnsupportedOperationException();
+        bookRepo.deleteById(bookId);
+        return true;
     }
 }
