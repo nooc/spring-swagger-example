@@ -5,12 +5,14 @@ import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Service;
 import space.nixus.swaggex.model.Token;
 import space.nixus.swaggex.model.User;
 import space.nixus.swaggex.repository.TokenRepository;
 import space.nixus.swaggex.repository.UserRepository;
 
 
+@Service
 public class TokenService {
 
     @Autowired

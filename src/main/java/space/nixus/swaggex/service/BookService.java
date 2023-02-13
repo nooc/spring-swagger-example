@@ -3,10 +3,12 @@ package space.nixus.swaggex.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Service;
 import space.nixus.swaggex.model.Book;
 import space.nixus.swaggex.repository.BookRepository;
 
 
+@Service
 public class BookService {
 
     @Autowired
@@ -27,7 +29,9 @@ public class BookService {
 
     @Query
     public List<Book> findBooks(String search) {
-        return bookRepo.freeSearch(search);
+        // trim and replace whitespaces by '%'
+        var searchValue = search.trim().replaceAll("\\s+", "%");
+        return bookRepo.findAllByKeyword(searchValue);
     }
 
     public boolean updateBook(Book book) {

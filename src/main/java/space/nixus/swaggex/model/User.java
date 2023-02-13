@@ -9,6 +9,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -16,7 +17,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class User {
+    public static final int ROLE_NONE     = 0x0000;
     public static final int ROLE_USER     = 0x0001;
     public static final int ROLE_ADMIN    = 0x1000;
     
@@ -25,9 +28,9 @@ public class User {
     private Long id;
     @Column(unique = true, nullable = false)
     @Email
-    private String email;
+    private String email = null;
     @Column
-    private String password;
-    @Column
-    private Integer role;
+    private String password = null;
+    @Column(nullable = false)
+    private Integer role = ROLE_NONE;
 }

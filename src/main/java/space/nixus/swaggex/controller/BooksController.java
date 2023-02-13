@@ -1,6 +1,7 @@
 package space.nixus.swaggex.controller;
 
 import org.springframework.web.bind.annotation.RestController;
+import jakarta.annotation.security.RolesAllowed;
 import space.nixus.swaggex.model.Book;
 import space.nixus.swaggex.service.BookService;
 import java.util.List;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @RestController
 @RequestMapping("/books")
+@RolesAllowed({"ROLE_USER","ROLE_ADMIN"})
 public class BooksController {
     
     @Autowired

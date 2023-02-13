@@ -13,7 +13,6 @@ public interface TokenRepository extends JpaRepository<Token,Long> {
     Token findByValue(String value);
 
     @Modifying
-    @Query(value = "DELETE FROM token WHERE expires < :timestamp",
-    nativeQuery = true)
+    @Query(value = "DELETE FROM token WHERE expires < :timestamp", nativeQuery = true)
     void deleteByExpiresLessThan(@Param("timestamp") Long timestamp);
 }
